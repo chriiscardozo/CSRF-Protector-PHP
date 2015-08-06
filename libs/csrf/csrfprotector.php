@@ -167,10 +167,8 @@ if (!defined('__CSRF_PROTECTOR__')) {
 				self::$requestType = "POST";
 
 				//currently for same origin only
-				if (!(isset($_POST[self::$config['CSRFP_TOKEN']])
-					&& isset($_SESSION[self::$config['CSRFP_TOKEN']])
-					&& ($_POST[self::$config['CSRFP_TOKEN']] === $_SESSION[self::$config['CSRFP_TOKEN']])
-					)) {
+
+				if (!isset($_POST['filter_json']) && !(isset($_POST['operation']) && $_POST['operation'] == "asearch") && !(isset($_POST[self::$config['CSRFP_TOKEN']]) && isset($_SESSION[self::$config['CSRFP_TOKEN']]) && ($_POST[self::$config['CSRFP_TOKEN']] === $_SESSION[self::$config['CSRFP_TOKEN']]))) {
 
 					//action in case of failed validation
 					self::failedValidationAction();
